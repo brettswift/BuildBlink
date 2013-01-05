@@ -1,0 +1,16 @@
+{
+    "teamcityBuildNumbers": [
+        {
+            "name": "test",
+            "id": "bt4"
+        },
+        {
+        	"name": "clone",
+        	"id": "bt5"
+        },
+        {
+        	"name": "shouldBe404",
+        	"id": "bt2"
+        }
+    ]
+}

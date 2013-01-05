@@ -1,0 +1,63 @@
+{
+    "count": 6,
+    "build": [
+        {
+            "id": 85,
+            "number": "27",
+            "running": true,
+            "percentageComplete": 32,
+            "status": "SUCCESS",
+            "buildTypeId": "bt4",
+            "branchName": "/testingTeamcity",
+            "startDate": "20130105T152221-0700",
+            "href": "/httpAuth/app/rest/builds/id:85",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=85&buildTypeId=bt4"
+        },
+        {
+            "id": 83,
+            "number": "26",
+            "status": "FAILURE",
+            "buildTypeId": "bt4",
+            "branchName": "/testingTeamcity",
+            "startDate": "20130105T151616-0700",
+            "href": "/httpAuth/app/rest/builds/id:83",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=83&buildTypeId=bt4"
+        },
+        {
+            "id": 81,
+            "number": "25",
+            "status": "SUCCESS",
+            "buildTypeId": "bt4",
+            "startDate": "20130105T014834-0700",
+            "href": "/httpAuth/app/rest/builds/id:81",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=81&buildTypeId=bt4"
+        },
+        {
+            "id": 80,
+            "number": "24",
+            "status": "SUCCESS",
+            "buildTypeId": "bt4",
+            "startDate": "20130105T013636-0700",
+            "href": "/httpAuth/app/rest/builds/id:80",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=80&buildTypeId=bt4"
+        },
+        {
+            "id": 79,
+            "number": "23",
+            "status": "SUCCESS",
+            "buildTypeId": "bt4",
+            "startDate": "20130102T182957-0700",
+            "href": "/httpAuth/app/rest/builds/id:79",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=79&buildTypeId=bt4"
+        },
+        {
+            "id": 78,
+            "number": "22",
+            "status": "SUCCESS",
+            "buildTypeId": "bt4",
+            "startDate": "20130102T182948-0700",
+            "href": "/httpAuth/app/rest/builds/id:78",
+            "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=78&buildTypeId=bt4"
+        }
+    ]
+}

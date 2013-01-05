@@ -1,0 +1,46 @@
+{
+    "name": "buildBlinker",
+    "version": "0.0.1",
+    "description": "an application to monitor continuous integration builds and notify you by a ThingM blink1 light.",
+    "author": "Brett Swift <brettswift@gmail.com>",
+    "contributors": [
+        {
+            "name": "Brett Swift",
+            "email": "brettswift@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tbd"
+    },
+    "keywords": [
+        "continuous integration",
+        "ci",
+        "blink1",
+        "build"
+    ],
+    "dependencies": {
+        "seq": "0.3.5",
+        "request": "2.9.x",
+        "sprintf": "0.1.0",
+        "express": "3.x",
+        "nconf": "0.6.x"
+    },
+    "noAnalyze": true,
+    "devDependencies": {
+        "colors": "*",
+        "nodeunit": "0.7.x",
+        "should": "0.6.x",
+        "mocha": "1.2.x",
+        "node-inspector": "0.1.10"
+    },
+    "bundleDependencies": [],
+    "license": "Apache",
+    "engine": {
+        "node": "0.8.x"
+    },
+    "scripts": {
+        "prepublish": "npm prune",
+        "test": "make test"
+    }
+}
