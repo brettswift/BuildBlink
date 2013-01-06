@@ -64,6 +64,17 @@ suite('BuildActivity', function() {
 
 		});
 
+		
+		test('should_have_proper_build_token', function() {
+			var buildJson = JSON.parse(fs.readFileSync('./test/samples/sampleBuild_Red.json', "utf8"));
+			var activity = new BuildActivity(buildJson);
+
+			activity.instanceToken.should.equal('bt4:83');
+
+		});
+
+
+
 	});
 
 

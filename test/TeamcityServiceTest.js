@@ -6,25 +6,26 @@ var fs = require('fs');
 
 suite('TeamcityService', function() {
 	var config;
+	var service;
+	var mockGateway;
+
 	setup(function() {
-		// config = JSON.parse(fs.readFileSync('./conf/default/config.json', "utf8"));
+		config = JSON.parse(fs.readFileSync('./config.json', "utf8"));
+		service = new TeamCityService(config,mockGateway);
 	});
 
 	suite('constructor', function() {
-		test('should_create_TeamCityGateway', function() {
-			var service = new TeamCityService("testServer");
-			// assert.equal(service.server, "testServer");
+		test('should_create_TeamCityService', function() {
+			service.should.be.a('object').and.have.property('gateway', mockGateway);
 		});
 	});
 
 	suite('getBuildForId', function() {
 		test('should_get_all_builds_for_project_id', function(done) {
- 
-			var service = new TeamCityService(config);
 
+			//TODO: me.
+			don();
 
-
-			done();
 		});
 	});
 });

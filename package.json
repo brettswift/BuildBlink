@@ -32,7 +32,8 @@
         "nodeunit": "0.7.x",
         "should": "0.6.x",
         "mocha": "1.2.x",
-        "node-inspector": "0.1.10"
+        "node-inspector": "0.1.10",
+        "prettyjson": "x"
     },
     "bundleDependencies": [],
     "license": "Apache",

@@ -1,32 +1,38 @@
 var assert = require('assert');
 var should = require('should');
+var colors = require('colors');
+var prettyjson = require('prettyjson');
 
-var TeamCityGateway = require('./../gateways/TeamCityGateway.js');
+var TeamCityService = require('./../services/TeamCityService.js');
+var BuildActivity = require('./../domain/BuildActivity.js');
+
 var fs = require('fs');
 
-suite('TeamcityGatway', function() {
+suite('TeamcityService', function() {
 	var config;
+	var service;
+	var mockGateway;
+
 	setup(function() {
-		// config = JSON.parse(fs.readFileSync('./conf/default/config.json', "utf8"));
+		config = JSON.parse(fs.readFileSync('./config.json', "utf8"));
+		service = new TeamCityService(config, mockGateway);
 	});
 
 	suite('constructor', function() {
-		test('should_create_TeamCityGateway', function() {
-			var gateway = new TeamCityGateway("testServer");
-			assert.equal(gateway.server, "testServer");
+		test('should_create_TeamCityService', function() {
+			service.should.be.a('object').and.have.property('gateway', mockGateway);
 		});
 	});
 
-	suite('getBuildForId', function() {
-		test('should_get_all_builds_for_project_id', function(done) {
+	suite('getBuildActivityForBuildId', function() {
+		test('should_return_build_activity', function(done) {
 
-			var gateway = new TeamCityGateway(config);
-
-			gateway.getBuildsForProjectId('bt4', function(err,result) {
-				result.count.should.be.greater.than(0);
+			service.getBuildActivityForBuildId('bt4', function(err, result) {
+				// console.log(prettyjson.render(result));
+				result.should.be.an.instanceof(BuildActivity, "BuildActivity");
+				done();
 			});
-
-			done();
 		});
+
 	});
 });

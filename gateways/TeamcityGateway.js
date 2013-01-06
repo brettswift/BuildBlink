@@ -5,7 +5,8 @@ var TeamCityGateway = function(server) {
 		this.server = server || '192.168.1.194:81'; //TODO: remove hard coded default after integration tests.
 	};
 
-var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,lookupLimit:2';
+//TODO: branches should be removed - this is just to easily test build transition on a throw away branch. 
+var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:5';
 
 TeamCityGateway.prototype = {
 	getBuildsForProjectId: function(projectId, callback) {

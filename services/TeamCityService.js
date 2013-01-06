@@ -1,8 +1,11 @@
 var TeamCityGateway = require('./../gateways/TeamCityGateway');
+var BuildActivity = require('./../domain/BuildActivity');
+
 var Seq = require('seq');
 
-var TeamCityService = function(config) {
+var TeamCityService = function(config, injectableGateway) {
         this.config = config;
+        this.gateway = injectableGateway || new TeamCityGateway();
     };
 
 TeamCityService.prototype = {
@@ -19,37 +22,23 @@ TeamCityService.prototype = {
 
         }.bind(this));
     },
-    getStatusForBuildId: function(buildData, callback) {
+    getBuildActivityForBuildId: function(buildId, callback) {
 
+        this.gateway.getBuildsForProjectId(buildId, function(err, jsonBuildActivity) {
 
+            var build = new BuildActivity(jsonBuildActivity);
+
+            callback(null, build);
+        })
     },
     getAllBuilds: function(config, callback) {
 
-
         Seq().seq(function() {
+            this.getConfigForSeq(this);
+        }).seq(function(stuff) {
+            console.log(stuff);
+        }).flatten().parMap(5, function(configSection) {
 
-            vcsService.getCommitEntries(this);
-        }).seq(function(commitEntries) {
-            // log.error(util.format('%j',commitEntries));
-            var cardBuilder = new CardGroupBuilder();
-            cardBuilder.buildCardGroupsAsync(commitEntries, this);
-        }).flatten().parMap(5, function(cardGroup) {
-            // Retrieve the task card for each commit
-            //TODO: push to validation elsewhere
-            log.info("going to look for info on: " + cardGroup.compositeKey);
-            if(cardGroup.cardNumber === '') {
-                log.warn('not handling' + util.format('%j', cardGroup));
-                //for now just wrap it in a dummy card group and pop it back on the stack, we can't do anything with it.
-                //var emptyCardGroup = new CardGroup().createFromInvalidCardGroup(cardGroup);
-                //code above likely not needed.. card group already created.
-                fakeReturnCallback(cardGroup, this);
-            } else {
-                //log.error(util.format('%j', cardGroup));
-                var wallServiceName = config.cardWalls[cardGroup.cardWall].service;
-                var cardWallService = cardWallServiceFactory.getCardWallService(wallServiceName);
-                cardWallService.getCardInfo(cardGroup, this);
-                // debugger;
-            }
         }).seq(function() {
             // for(var i in this.stack){
             //     cardCollection.addCard(this.stack[i]);
@@ -64,7 +53,7 @@ TeamCityService.prototype = {
             renderer.renderOutput(categoryGroups, this);
         });
     },
-    getConfigForSeq: function(callback){
+    getConfigForSeq: function(callback) {
         callback(this.config.teamcityBuildNumbers);
     }
 };

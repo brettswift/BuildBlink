@@ -20,20 +20,22 @@ var config = require('nconf').get();
 
 app.get(rootApi + '/checkBuild', function(req, res) {
 
+	res.send("#111111");
 	play(brokenBuild, function(err, response) {
+		
+	}.bind(this));
 
-		res.send(response);
-
-	});
 
 });
 
 function play(pname, callback) {
+		console.log("playing...");
 
 	request(blinkUri_Play + pname, function(error,response,body) {
+		console.log("### playing blink1 ###");
+		console.log(body);
 
 		callback(null, body);
-
 	});
 }
 
