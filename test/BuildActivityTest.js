@@ -61,6 +61,7 @@ suite('BuildActivity', function() {
 
 			activity.isGreen().should.be.false;
 			activity.isBuilding().should.be.false;
+			activity.isRed().should.be.true;
 
 		});
 
@@ -72,6 +73,9 @@ suite('BuildActivity', function() {
 			activity.instanceToken.should.equal('bt4:83');
 
 		});
+
+		
+
 
 
 

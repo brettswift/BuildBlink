@@ -7,10 +7,6 @@
         {
         	"name": "clone",
         	"id": "bt5"
-        },
-        {
-        	"name": "shouldBe404",
-        	"id": "bt2"
         }
     ]
 }
