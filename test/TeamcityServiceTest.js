@@ -4,7 +4,7 @@ var should = require('should');
 var TeamCityService = require('./../services/TeamCityService.js');
 var fs = require('fs');
 
-suite('TeamcityService', function() {
+suite('TeamCityService', function() {
 	var config;
 	var service;
 	var mockGateway;
@@ -21,10 +21,10 @@ suite('TeamcityService', function() {
 	});
 
 	suite('getBuildForId', function() {
-		test('should_get_all_builds_for_project_id', function(done) {
+		test('should_get_all_builds_for_project_id', function() {
 
 			//TODO: me.
-			don();
+
 
 		});
 	});

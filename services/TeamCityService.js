@@ -1,5 +1,5 @@
-var TeamCityGateway = require('./../gateways/TeamCityGateway');
-var BuildActivity = require('./../domain/BuildActivity');
+var TeamCityGateway = require('../gateways/TeamCityGateway');
+var BuildActivity = require('../domain/BuildActivity');
 
 var Seq = require('seq');
 
