@@ -5,4 +5,5 @@ branches:
   only:
     - master
 script:
-    - "./node_modules/.bin/mocha -u tdd --reporter spec test/**"
+    - "pwd"
+    - "npm test"
