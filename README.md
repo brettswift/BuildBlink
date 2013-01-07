@@ -3,7 +3,7 @@ Build Blink
 Uses [ThingM.com](http://thingm.com/)'s  [blink(1)](http://blink1.thingm.com/) product as a continuous integration build light. 
 
 
-[![Build Status](https://travis-ci.org/brettswift/BuildBlink.png)](https://travis-ci.org/brettswift/BuildBlink)
+[![Build Status](https://travis-ci.org/brettswift/BuildBlink.png?branch=master)](https://travis-ci.org/brettswift/BuildBlink)
 
 
 Features
