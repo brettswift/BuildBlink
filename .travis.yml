@@ -6,4 +6,5 @@ branches:
     - master
 script:
     - "pwd"
+    - "ls -lahR"
     - "npm test"
