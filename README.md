@@ -22,7 +22,9 @@ Currently one light can support multiple builds.  The blink pattern chosen will 
 **TBD**
 
 
-Right know the desktop tool triggers this code at an express http uri.  The website then hits the blink1 api to trigger a specific pattern.  The pattern has already been loaded on the device. (Script included)  It's kind of cludgy, but was quick to get running and easy to test.  Eventually remove dependency on the desktop app, and not host it as a website - background process instead?
+Right now the desktop tool triggers BuildBlink at an express http uri.  BuildBlink hits the blink1 api to trigger a specific pattern.  The pattern has already been loaded and stored in the desktop tool. (Script included)  
+
+This architecture is kind of cludgy, but was quick to get running and easy to test.  Eventually remove dependency on the desktop app, and not host it as a website - background process instead?
 
 
 
