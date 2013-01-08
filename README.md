@@ -38,4 +38,4 @@ Supported CI servers:
 Story Wall
 -----------
 Private story wall is used to track features:  
-[Trello.com story wall (private)]("https://trello.com/board/buildblinker/50e8b74c70aad4fc050025bc")
+[Trello.com story wall (private)]("https://trello.com/board/buildblink/50e8b74c70aad4fc050025bc")
