@@ -30,6 +30,12 @@ BuildActivity.prototype = {
 			return true;
 		}
 		return false;
+	},
+	isRed: function(){
+		if(!this.isBuilding() && !this.isGreen()){
+			return true;
+		}
+		return false;
 	}
 };
 
