@@ -3,6 +3,9 @@ var BuildActivity = require('../domain/BuildActivity');
 
 var Seq = require('seq');
 
+//TODO: make use of this array to cache so we know which builds we've already reported on.
+var lastKnownBuilds = [];
+
 var TeamCityService = function(config, injectableGateway) {
         this.config = config;
         this.gateway = injectableGateway || new TeamCityGateway();

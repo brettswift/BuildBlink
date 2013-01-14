@@ -14,6 +14,7 @@ var brokenBuild = 'policeFlash';
 var buildingFromRed = 'buildingFromRed';
 var buildingFromGreen = 'buildingFromGreen';
 var successfulBuild = 'successfulBuild';
+var newSuccessfulBuild = 'successfulBuild';
 
 
 //Config must be executed first in this file.
@@ -21,42 +22,57 @@ var config = require('nconf').get();
 
 var service = new TeamCityService(config);
 
+//TODO: report precedence, needs to change to this. This doesn't get cached!!!! so it gets reported as new green or new red after.  
+// 1. if something is building currently, show it. 
+// 2. if there is a new broken build
+// 3. if there is a new green build, flash, but then go back to overall status. 
+// 4. if nothing new, go solid to the current state.  Red/Green.
+
+
 app.get(rootApi + '/checkBuild', function(req, res) {
 	var lightPattern = brokenBuild;
 	var hasRunningBuild = false;
 	res.send("#111111");
 
-	play(brokenBuild, function(err, response) {}.bind(this));
-	//TODO: move out of here. 
+	// play(brokenBuild, function(err, response) {}.bind(this));
+	//TODO: move out of here, and return the playlist code. 
 	service.getAllBuilds(function(err, buildActivities) {
 		console.log("\r\n ----> controling light with result...".white);
-		if(areAllBuildsGreen()) {
+		if(areAllBuildsGreen(buildActivities)) {
 			console.log("all builds are green".green);
-			play(successfulBuild, function(err, response) {});
+			if(previousBuildWasNotGreen(buildActivities)) {
+				play(newSuccessfulBuild, function(err, response) {});
+
+			} else {
+				play(successfulBuild, function(err, response) {});
+			}
 			return;
 		}
 
-		if(areAnyBuildsBuilding()) {
+		if(areAnyBuildsBuilding(buildActivities)) {
 			if(areAnyBuildsBuildingFromRed()) {
-				console.log("some builds are building from red".orange);
+				console.log("some builds are red".orange);
 				play(buildingFromRed, function(err, response) {});
 				return;
 			}
-			if(areAnyBuildsBuildingFromGreen()) {
+			if(areAnyBuildsBuildingFromGreen(buildActivities)) {
 				console.log("some builds are building from red".yellow);
 				play(buildingFromGreen, function(err, response) {});
 				return;
 			}
 		}
 
-		if(areAnyBuildsRed()) {
-				console.log("some builds are building from red".red);
+		if(areAnyBuildsRed(buildActivities)) {
+			console.log("some builds are building from red".red);
 			play(brokenBuild, function(err, response) {});
 		}
 
 	});
 });
 
+function previousBuildWasNotGreen(buildActivities){
+
+}
 function areAllBuildsGreen(buildActivities) {
 	for(var i in buildActivities) {
 		if(!buildActivities[i].isGreen()) {

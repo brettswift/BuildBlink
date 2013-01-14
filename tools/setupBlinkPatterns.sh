@@ -11,5 +11,8 @@ curl 'http://localhost:8934/blink1/pattern/add?pname=buildingFromRed&pattern=4,%
 curl 'http://localhost:8934/blink1/pattern/add?pname=buildingFromGreen&pattern=10,%23009900,0.5,%23FFCC00,2'
 
 #successfulBuild
-curl 'http://localhost:8934/blink1/pattern/add?pname=successfulBuild&pattern=10,%23000000,0.5,%2300FF00,0.5'
+curl 'http://localhost:8934/blink1/pattern/add?pname=successfulBuild&pattern=1,%2300FF00,0.5'
+
+#newSuccessfulBuild
+curl 'http://localhost:8934/blink1/pattern/add?pname=newSuccessfulBuild&pattern=10,%23000000,0.5,%2300FF00,0.5'
 
