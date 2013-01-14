@@ -7,7 +7,7 @@ var TeamCityGateway = function(server) {
 	};
 
 //TODO: branches should be removed - this is just to easily test build transition on a throw away branch. 
-var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:5';
+var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2';
 
 TeamCityGateway.prototype = {
 	getBuildsForProjectId: function(projectId, callback) {
@@ -33,7 +33,7 @@ TeamCityGateway.prototype = {
 			if(response.statusCode == 404) {
 				callback(vsprintf("Build %s not found", projectId));
 			}
-			console.log(prettyjson.render(body));
+			// console.log(prettyjson.render(body));
 
 			callback(null, body);
 		});

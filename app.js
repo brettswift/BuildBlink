@@ -4,6 +4,7 @@ var request = require('request');
 var loadConfig = require('./configure');
 var TeamCityService = require('./services/TeamCityService');
 var colors = require('colors');
+var prettyjson = require('prettyjson');
 
 var rootApi = '/blink';
 
@@ -28,7 +29,6 @@ var service = new TeamCityService(config);
 // 3. if there is a new green build, flash, but then go back to overall status. 
 // 4. if nothing new, go solid to the current state.  Red/Green.
 
-
 app.get(rootApi + '/checkBuild', function(req, res) {
 	var lightPattern = brokenBuild;
 	var hasRunningBuild = false;
@@ -38,6 +38,23 @@ app.get(rootApi + '/checkBuild', function(req, res) {
 	//TODO: move out of here, and return the playlist code. 
 	service.getAllBuilds(function(err, buildActivities) {
 		console.log("\r\n ----> controling light with result...".white);
+
+
+		console.log(prettyjson.render(buildActivities));
+		if(areAnyBuildsBuilding(buildActivities)) {
+			if(areAnyBuildsBuildingFromRed(buildActivities)) {
+				console.log("some builds are building from red".yellow);
+				play(buildingFromRed, function(err, response) {});
+				return;
+			}
+			if(areAnyBuildsBuildingFromGreen(buildActivities)) {
+				console.log("some builds are building from green".yellow);
+				play(buildingFromGreen, function(err, response) {});
+				return;
+			}
+			console.log("...... could not determine if it was building from red or green");
+		}
+
 		if(areAllBuildsGreen(buildActivities)) {
 			console.log("all builds are green".green);
 			if(previousBuildWasNotGreen(buildActivities)) {
@@ -49,33 +66,21 @@ app.get(rootApi + '/checkBuild', function(req, res) {
 			return;
 		}
 
-		if(areAnyBuildsBuilding(buildActivities)) {
-			if(areAnyBuildsBuildingFromRed()) {
-				console.log("some builds are building from red".orange);
-				play(buildingFromRed, function(err, response) {});
-				return;
-			}
-			if(areAnyBuildsBuildingFromGreen(buildActivities)) {
-				console.log("some builds are building from green".yellow);
-				play(buildingFromGreen, function(err, response) {});
-				return;
-			}
-		}
-
 		if(areAnyBuildsRed(buildActivities)) {
-			console.log("some builds are building from red".red);
+			console.log("some builds are red".red);
 			play(brokenBuild, function(err, response) {});
 		}
 
 	});
 });
 
-function previousBuildWasNotGreen(buildActivities){
+function previousBuildWasNotGreen(buildActivities) {
 
 }
+
 function areAllBuildsGreen(buildActivities) {
 	for(var i in buildActivities) {
-		if(!buildActivities[i].isGreen()) {
+		if(!buildActivities[i].isGreen) {
 			return false;
 		}
 	}
@@ -84,7 +89,7 @@ function areAllBuildsGreen(buildActivities) {
 
 function areAnyBuildsBuilding(buildActivities) {
 	for(var i in buildActivities) {
-		if(buildActivities[i].isBuilding()) {
+		if(buildActivities[i].isBuilding) {
 			return true;
 		}
 	}
@@ -93,7 +98,7 @@ function areAnyBuildsBuilding(buildActivities) {
 
 function areAnyBuildsBuildingFromRed(buildActivities) {
 	for(var i in buildActivities) {
-		if(buildActivities[i].isBuildingFromRed()) {
+		if(buildActivities[i].isBuildingFromRed) {
 			return true;
 		}
 	}
@@ -102,7 +107,7 @@ function areAnyBuildsBuildingFromRed(buildActivities) {
 
 function areAnyBuildsBuildingFromGreen(buildActivities) {
 	for(var i in buildActivities) {
-		if(buildActivities[i].isBuildingFromGreen()) {
+		if(buildActivities[i].isBuildingFromGreen) {
 			return true;
 		}
 	}
@@ -111,7 +116,7 @@ function areAnyBuildsBuildingFromGreen(buildActivities) {
 
 function areAnyBuildsRed(buildActivities) {
 	for(var i in buildActivities) {
-		if(buildActivities[i].isRed()) {
+		if(buildActivities[i].isRed) {
 			return true;
 		}
 	}

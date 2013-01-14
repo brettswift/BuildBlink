@@ -4,7 +4,7 @@ var should = require('should');
 var TeamCityGateway = require('./../gateways/TeamCityGateway.js');
 var fs = require('fs');
 
-suite('TeamCityGatway', function() {
+suite('TeamCityGateway', function() {
 	var config;
 	setup(function() {
 		// config = JSON.parse(fs.readFileSync('./conf/default/config.json', "utf8"));

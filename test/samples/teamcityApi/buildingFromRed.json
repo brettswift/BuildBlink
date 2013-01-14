@@ -1,0 +1,40 @@
+{
+  "count": 3,
+  "build": [
+    {
+      "id": 141,
+      "number": "56",
+      "running": true,
+      "percentageComplete": 33,
+      "status": "SUCCESS",
+      "buildTypeId": "bt6",
+      "branchName": "/master",
+      "defaultBranch": true,
+      "startDate": "20130113T213431-0700",
+      "href": "/httpAuth/app/rest/builds/id:141",
+      "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=141&buildTypeId=bt6"
+    },
+    {
+      "id": 140,
+      "number": "55",
+      "status": "FAILURE",
+      "buildTypeId": "bt6",
+      "branchName": "/master",
+      "defaultBranch": true,
+      "startDate": "20130113T213333-0700",
+      "href": "/httpAuth/app/rest/builds/id:140",
+      "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=140&buildTypeId=bt6"
+    },
+    {
+      "id": 139,
+      "number": "54",
+      "status": "SUCCESS",
+      "buildTypeId": "bt6",
+      "branchName": "/master",
+      "defaultBranch": true,
+      "startDate": "20130113T213206-0700",
+      "href": "/httpAuth/app/rest/builds/id:139",
+      "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=139&buildTypeId=bt6"
+    }
+  ]
+}

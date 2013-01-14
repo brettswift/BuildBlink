@@ -1,0 +1,27 @@
+{
+  "count": 2,
+  "build": [
+    {
+      "id": 139,
+      "number": "54",
+      "status": "SUCCESS",
+      "buildTypeId": "bt6",
+      "branchName": "/master",
+      "defaultBranch": true,
+      "startDate": "20130113T213206-0700",
+      "href": "/httpAuth/app/rest/builds/id:139",
+      "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=139&buildTypeId=bt6"
+    },
+    {
+      "id": 138,
+      "number": "53",
+      "status": "FAILURE",
+      "buildTypeId": "bt6",
+      "branchName": "/master",
+      "defaultBranch": true,
+      "startDate": "20130113T213119-0700",
+      "href": "/httpAuth/app/rest/builds/id:138",
+      "webUrl": "http://192.168.1.194:81/viewLog.html?buildId=138&buildTypeId=bt6"
+    }
+  ]
+}

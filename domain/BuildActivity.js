@@ -7,32 +7,41 @@ var BuildActivity = function(activityData) {
 
 		//ID is unique across teamcity, could just use that.
 		this.instanceToken = this.currentBuild.buildTypeId + ':' + this.currentBuild.id;
+		this.setProperties();
 	};
 
 BuildActivity.prototype = {
-	isBuildingFromGreen: function() {
-		return !this.isBuildingFromRed();
+	setProperties: function(){
+		// this.props = {};
+		this.isBuildingFromGreen = this._isBuildingFromGreen();
+		this.isGreen = this._isGreen();
+		this.isBuilding = this._isBuilding();
+		this.isBuildingFromRed = this._isBuildingFromRed();
+		this.isRed = this._isRed();
 	},
-	isGreen: function() {
+	_isBuildingFromGreen: function() {
+		return !this._isBuildingFromRed();
+	},
+	_isGreen: function() {
 		if(this.currentBuild.status != 'SUCCESS') {
 			return false;
 		}
-		if(this.isBuilding()) {
+		if(this._isBuilding()) {
 			return false;
 		}
 		return true;
 	},
-	isBuilding: function() {
+	_isBuilding: function() {
 		return this.currentBuild.running || false;
 	},
-	isBuildingFromRed: function() {
+	_isBuildingFromRed: function() {
 		if(this.previousBuild.status == 'FAILURE' || this.previousBuild.status == 'ERROR') {
 			return true;
 		}
 		return false;
 	},
-	isRed: function(){
-		if(!this.isBuilding() && !this.isGreen()){
+	_isRed: function(){
+		if(!this._isBuilding() && !this._isGreen()){
 			return true;
 		}
 		return false;
