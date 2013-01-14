@@ -1,12 +1,8 @@
 {
     "teamcityBuildNumbers": [
         {
-            "name": "test",
-            "id": "bt4"
-        },
-        {
-        	"name": "clone",
-        	"id": "bt5"
+            "name": "blink working test",
+            "id": "bt6"
         }
     ]
 }

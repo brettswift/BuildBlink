@@ -1,5 +1,6 @@
 var vsprintf = require('sprintf').sprintf;
 var request = require('request');
+var prettyjson = require('prettyjson');
 
 var TeamCityGateway = function(server) {
 		this.server = server || '192.168.1.194:81'; //TODO: remove hard coded default after integration tests.
@@ -21,7 +22,9 @@ TeamCityGateway.prototype = {
 		var options = {
 			url: uri,
 			json: true,
-			headers: {'Accept': 'application/json'}
+			headers: {
+				'Accept': 'application/json'
+			}
 		};
 		request(options, function(error, response, body) {
 			if(error) {
@@ -30,6 +33,8 @@ TeamCityGateway.prototype = {
 			if(response.statusCode == 404) {
 				callback(vsprintf("Build %s not found", projectId));
 			}
+			console.log(prettyjson.render(body));
+
 			callback(null, body);
 		});
 	}

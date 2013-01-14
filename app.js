@@ -51,12 +51,12 @@ app.get(rootApi + '/checkBuild', function(req, res) {
 
 		if(areAnyBuildsBuilding(buildActivities)) {
 			if(areAnyBuildsBuildingFromRed()) {
-				console.log("some builds are red".orange);
+				console.log("some builds are building from red".orange);
 				play(buildingFromRed, function(err, response) {});
 				return;
 			}
 			if(areAnyBuildsBuildingFromGreen(buildActivities)) {
-				console.log("some builds are building from red".yellow);
+				console.log("some builds are building from green".yellow);
 				play(buildingFromGreen, function(err, response) {});
 				return;
 			}
