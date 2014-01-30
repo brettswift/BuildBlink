@@ -35,7 +35,9 @@ suite('PatternController', function() {
 			};
 
 			sut.determinePatternToPlay(function(err, pattern) {
-				// console.log(prettyjson.render(result));
+				console.log("!!!!!!!!!!!start!!!!!!!!!!!!!!!!!!")
+				console.log(stubBuildActivity);
+				console.log("!!!!!!!!!!!!end!!!!!!!!!!!!!!!!")
 				pattern.should.be.a('string');
 				pattern.should.equal('successfulBuild');
 				done();

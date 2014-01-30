@@ -6,7 +6,7 @@ var Seq = require('seq');
 
 var TeamCityService = function(config, injectableGateway) {
         this.config = config;
-        this.gateway = injectableGateway || new TeamCityGateway();
+        this.gateway = injectableGateway || new TeamCityGateway(config.teamcityHost);
     };
 
 TeamCityService.prototype = {

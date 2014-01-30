@@ -3,15 +3,15 @@ var request = require('request');
 var prettyjson = require('prettyjson');
 
 var TeamCityGateway = function(server) {
-		this.server = server || '192.168.1.194:81'; //TODO: remove hard coded default after integration tests.
-	};
+	this.server = server; //TODO: remove hard coded default after integration tests.
+};
 
 //TODO: branches should be removed - this is just to easily test build transition on a throw away branch. 
-var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2';
+var uriBuildLocatorBase = 'https://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2';
 
 TeamCityGateway.prototype = {
 	getBuildsForProjectId: function(projectId, callback) {
-		if(!projectId) {
+		if (!projectId) {
 			callback("Hmmmm...  you asked me to check a null build.", undefined);
 			return;
 		}
@@ -21,16 +21,21 @@ TeamCityGateway.prototype = {
 		console.log('\rSending request to: ' + uri);
 		var options = {
 			url: uri,
+			method: 'GET',
 			json: true,
 			headers: {
-				'Accept': 'application/json'
+				'accept': 'application/json'
 			}
 		};
+
 		request(options, function(error, response, body) {
-			if(error) {
+			if (error) {
+				console.log(error)
+				// if you get UNABLE_TO_VERIFY_LEAF_SIGNATURE
+				// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 				callback(error, null);
 			}
-			if(response.statusCode == 404) {
+			if (response.statusCode == 404) {
 				callback(vsprintf("Build %s not found", projectId));
 			}
 			// console.log(prettyjson.render(body));

@@ -1,8 +1,11 @@
 #This script relies on the Mac tool to be running.   
 #Confirm by putting this uri in your browser: http://localhost:8934/blink1/pattern/
 
-#brokenBuild
+#newBrokenBuild
 curl 'http://localhost:8934/blink1/pattern/add?pname=policeFlash&pattern=10,%230000FF,0.5,%23FF0000,0.5'
+
+#brokenBuild
+curl 'http://localhost:8934/blink1/pattern/add?pname=brokenBuild&pattern=1,%23FF0000,0.5'
 
 #buildingFromRed
 curl 'http://localhost:8934/blink1/pattern/add?pname=buildingFromRed&pattern=4,%23990000,0.5,%23FFCC00,2'

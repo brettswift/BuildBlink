@@ -1,8 +1,9 @@
 {
+    "teamcityHost": "pre-teamcity.oss.lab",
     "teamcityBuildNumbers": [
         {
             "name": "blink working test",
-            "id": "bt6"
+            "id": "BrettTest_PuppetConfig_FastTests"
         }
     ]
 }

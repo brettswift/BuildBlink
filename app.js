@@ -11,12 +11,15 @@ var rootApi = '/blink';
 var blinkUri_Play = 'http://localhost:8934/blink1/pattern/play?pname=';
 
 //patterns
-var brokenBuild = 'policeFlash';
+var brokenBuild = 'brokenBuild';
+var newBrokenBuild = 'policeFlash';
 var buildingFromRed = 'buildingFromRed';
 var buildingFromGreen = 'buildingFromGreen';
 var successfulBuild = 'successfulBuild';
 var newSuccessfulBuild = 'successfulBuild';
 
+//## HACK - this fixes an https issue, where UNABLE_TO_VERIFY_LEAF_SIGNATURE is returned from a request
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 //Config must be executed first in this file.
 var config = require('nconf').get();
@@ -39,8 +42,6 @@ app.get(rootApi + '/checkBuild', function(req, res) {
 	service.getAllBuilds(function(err, buildActivities) {
 		console.log("\r\n ----> controling light with result...".white);
 
-
-		console.log(prettyjson.render(buildActivities));
 		if(areAnyBuildsBuilding(buildActivities)) {
 			if(areAnyBuildsBuildingFromRed(buildActivities)) {
 				console.log("some builds are building from red".yellow);
