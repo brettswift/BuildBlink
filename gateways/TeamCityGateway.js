@@ -7,7 +7,8 @@ var TeamCityGateway = function(server) {
 };
 
 //TODO: branches should be removed - this is just to easily test build transition on a throw away branch. 
-var uriBuildLocatorBase = 'https://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2';
+//TODO: support for both https and http
+var uriBuildLocatorBase = 'http://%s/guestAuth/app/rest/buildTypes/id:%s/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2';
 
 TeamCityGateway.prototype = {
 	getBuildsForProjectId: function(projectId, callback) {

@@ -1,9 +1,9 @@
 {
-    "teamcityHost": "pre-teamcity.oss.lab",
+    "teamcityHost": "10.9.26.72:8111",
     "teamcityBuildNumbers": [
         {
-            "name": "blink working test",
-            "id": "BrettTest_PuppetConfig_FastTests"
+            "name": "server specs",
+            "id": "PuppetConfig_VagrantServerspecTesting"
         }
     ]
 }
