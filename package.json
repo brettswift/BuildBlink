@@ -24,7 +24,8 @@
         "request": "2.9.x",
         "sprintf": "0.1.0",
         "express": "3.x",
-        "nconf": "0.6.x"
+        "nconf": "0.6.x",
+        "node-blink1": "0.1.x"
     },
     "noAnalyze": true,
     "devDependencies": {
