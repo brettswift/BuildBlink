@@ -27,7 +27,7 @@
         "nconf": "0.6.x",
         "node-blink1": "0.1.x",
         "forever": "0.10.x",
-        "moment": "0.1.x",
+        "moment": "2.5.x"
     },
     "noAnalyze": true,
     "devDependencies": {
@@ -41,7 +41,7 @@
     "bundleDependencies": [],
     "license": "Apache",
     "engine": {
-        "node": "0.8.x"
+        "node": "0.10.x"
     },
     "scripts": {
         "prepublish": "npm prune",
