@@ -44,7 +44,7 @@
         "node": "0.10.x"
     },
     "scripts": {
-        "prepublish": "npm prune",
+        "prepublish": "yum install libusb",
         "test": "make test",
         "windowsTest": "node_modules\\.bin\\mocha -u tdd --reporter spec test\\"
     }
