@@ -1,5 +1,3 @@
-var express = require('express');
-var app = express();
 var request = require('request');
 var loadConfig = require('./configure');
 var TeamCityService = require('./services/TeamCityService');
@@ -7,15 +5,6 @@ var colors = require('colors');
 var prettyjson = require('prettyjson');
 var Blink1 = require('node-blink1');
 
-var rootApi = '/blink';
-
-//patterns
-var brokenBuild = 'brokenBuild';
-var newBrokenBuild = 'policeFlash';
-var buildingFromRed = 'buildingFromRed';
-var buildingFromGreen = 'buildingFromGreen';
-var successfulBuild = 'successfulBuild';
-var newSuccessfulBuild = 'successfulBuild';
 
 //## HACK - this fixes an https issue, where UNABLE_TO_VERIFY_LEAF_SIGNATURE is returned from a request
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
@@ -24,6 +13,8 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 var config = require('nconf').get();
 
 var service = new TeamCityService(config);
+
+var pollInterval = 30 * 1000;
 
 Blink1.devices(); // returns array of serial numbers
 var blink1 = new Blink1(); //uses first serialnumber
@@ -35,7 +26,6 @@ var blink1 = new Blink1(); //uses first serialnumber
 	// 4. if nothing new, go solid to the current state.  Red/Green.
 
 	function checkBuild(){
-		var lightPattern = brokenBuild;
 		var hasRunningBuild = false;
 
 		// play(brokenBuild, function(err, response) {}.bind(this));
@@ -46,12 +36,12 @@ var blink1 = new Blink1(); //uses first serialnumber
 			if(areAnyBuildsBuilding(buildActivities)) {
 				if(areAnyBuildsBuildingFromRed(buildActivities)) {
 					console.log("some builds are building from red".yellow);
-					play(buildingFromRed, function(err, response) {});
+					setRedToYellow();
 					return;
 				}
 				if(areAnyBuildsBuildingFromGreen(buildActivities)) {
 					console.log("some builds are building from green".yellow);
-					play(buildingFromGreen, function(err, response) {});
+					setGreenToYellow();
 					return;
 				}
 				console.log("...... could not determine if it was building from red or green");
@@ -60,17 +50,16 @@ var blink1 = new Blink1(); //uses first serialnumber
 			if(areAllBuildsGreen(buildActivities)) {
 				console.log("all builds are green".green);
 				if(previousBuildWasNotGreen(buildActivities)) {
-					play(newSuccessfulBuild, function(err, response) {});
-
+					setNewGreen()
 				} else {
-					play(successfulBuild, function(err, response) {});
+					setGreen();
 				}
 				return;
 			}
 
 			if(areAnyBuildsRed(buildActivities)) {
 				console.log("some builds are red".red);
-				play(brokenBuild, function(err, response) {});
+				setRed();
 			}
 
 		});
@@ -127,40 +116,72 @@ var blink1 = new Blink1(); //uses first serialnumber
 
 
 	var stopflashing = false;
-	function doPoliceFlash(){
-		blink1.fadeToRGB(200, 255, 0, 0,function(){
-			blink1.fadeToRGB(400, 255, 0, 0,function(){
-				blink1.fadeToRGB(200, 0, 0, 255,function(){
-					blink1.fadeToRGB(400, 0, 0, 255,function(){
-						// if i should stop, don't call callback
+	function cycleColors(fromRGB, toRGB, fadeDelay){
+		fadeDelay = fadeDelay || 1;
+		blink1.fadeToRGB(200 + fadeDelay, fromRGB.r, fromRGB.g, fromRGB.b,function(){
+			blink1.fadeToRGB(400, fromRGB.r, fromRGB.g, fromRGB.b,function(){ //hold this color by fading to the same color
+				blink1.fadeToRGB(200 + fadeDelay, toRGB.r, toRGB.g, toRGB.b,function(){
+					blink1.fadeToRGB(400, toRGB.r, toRGB.g, toRGB.b,function(){  //hold color again, TODO: cleaner way?
 						if(stopflashing){
 							stopflashing = false;
 						}else{
-							doPoliceFlash();
+							cycleColors(fromRGB,toRGB, fadeDelay);
 						}
-						
 					});
 				});
 			});
 		});
 	}
 
-	function doRed(){
-		
+	function setColor(r,g,b){
+		stopflashing = true;
+		blink1.fadeToRGB(200, r, g, b,function(){});
+	}
+
+	function setPoliceFlash(){
+		stopflashing = false;
+		cycleColors({r:0,g:0,b:255},{r:255,g:0,b:0});
+		setTimeout(function () {
+			stopflashing = true;
+		}, pollInterval);
+	}
+
+	function setRedToYellow(){
+		stopflashing = false;
+		cycleColors({r:255,g:0,b:0},{r:255,g:255,b:0});
+		setTimeout(function () {
+			stopflashing = true;
+		}, pollInterval);
+	}
+
+	function setGreenToYellow(){
+		stopflashing = false;
+		cycleColors({r:0,g:255,b:0},{r:255,g:255,b:0}, 1000);
+		setTimeout(function () {
+			stopflashing = true;
+		}, pollInterval);
+	}
+
+	function setGreen(){
+		stopflashing = true;
+		setColor(0,255,0);
+	}
+
+	function setNewGreen(){
+		stopflashing = false;
+		cycleColors({r:0,g:0,b:0},{r:0,g:255,b:0});
+		setTimeout(function () {
+			stopflashing = true;
+		}, pollInterval);
+	}
+
+	function setRed(){
+		stopflashing = true;
+		setColor(255,0,0);
 	}
 
 
-	function play(pname, callback) {
-		console.log("playing...");
 
-		doPoliceFlash();
- 
-		var date = new Date();
-		var timestamp = date.toDateString() + " " + date.toLocaleTimeString();
 
-		console.log("[" + timestamp + "] ______ ### playing blink1 ###");
-		// 	console.log(body);
-
-	}
-	play("policeFlash");
-	// checkBuild();
+	// setPoliceFlash();
+	checkBuild();
