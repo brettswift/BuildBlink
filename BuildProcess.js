@@ -5,6 +5,12 @@ var colors = require('colors');
 var prettyjson = require('prettyjson');
 var Blink1 = require('node-blink1');
 
+var pollInterval;
+
+var BuildProcess = function(pollInterval) {
+	pollInterval = pollInterval || 30 * 1000;
+	pollInterval = pollInterval - 1000; //hack to prevent odd behaviour, before refactoring.
+};
 
 //## HACK - this fixes an https issue, where UNABLE_TO_VERIFY_LEAF_SIGNATURE is returned from a request
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
@@ -14,7 +20,7 @@ var config = require('nconf').get();
 
 var service = new TeamCityService(config);
 
-var pollInterval = 30 * 1000;
+var pollInterval = 9 * 1000 ;
 
 Blink1.devices(); // returns array of serial numbers
 var blink1 = new Blink1(); //uses first serialnumber
@@ -25,14 +31,21 @@ var blink1 = new Blink1(); //uses first serialnumber
 // 3. if there is a new green build, flash, but then go back to overall status.
 	// 4. if nothing new, go solid to the current state.  Red/Green.
 
-	function checkBuild(){
+BuildProcess.prototype = {
+
+	checkBuild: function(){
 		var hasRunningBuild = false;
 
 		// play(brokenBuild, function(err, response) {}.bind(this));
 		//TODO: move out of here, and return the playlist code.
 		service.getAllBuilds(function(err, buildActivities) {
-			console.log("\r\n ----> controling light with result...".white);
+			// console.log("\r\n ----> controling light with result...".white);
+			var date = new Date();
+			var timestamp = date.toDateString() + " " + date.toLocaleTimeString();
 
+			console.log(buildActivities);
+
+			process.stdout.write(timestamp + "  ");
 			if(areAnyBuildsBuilding(buildActivities)) {
 				if(areAnyBuildsBuildingFromRed(buildActivities)) {
 					console.log("some builds are building from red".yellow);
@@ -49,8 +62,8 @@ var blink1 = new Blink1(); //uses first serialnumber
 
 			if(areAllBuildsGreen(buildActivities)) {
 				console.log("all builds are green".green);
-				if(previousBuildWasNotGreen(buildActivities)) {
-					setNewGreen()
+				if(buildActivities[0].isFreshlyGreen) {
+					setNewGreen();
 				} else {
 					setGreen();
 				}
@@ -59,15 +72,18 @@ var blink1 = new Blink1(); //uses first serialnumber
 
 			if(areAnyBuildsRed(buildActivities)) {
 				console.log("some builds are red".red);
-				setRed();
+				if(buildActivities[0].isFreshlyRed) {
+					setPoliceFlash();
+				}else{
+					setRed();
+				}
 			}
 
 		});
-	};
-
-	function previousBuildWasNotGreen(buildActivities) {
-
 	}
+};
+
+
 
 	function areAllBuildsGreen(buildActivities) {
 		for(var i in buildActivities) {
@@ -123,7 +139,7 @@ var blink1 = new Blink1(); //uses first serialnumber
 				blink1.fadeToRGB(200 + fadeDelay, toRGB.r, toRGB.g, toRGB.b,function(){
 					blink1.fadeToRGB(400, toRGB.r, toRGB.g, toRGB.b,function(){  //hold color again, TODO: cleaner way?
 						if(stopflashing){
-							stopflashing = false;
+							// stopflashing = false;
 						}else{
 							cycleColors(fromRGB,toRGB, fadeDelay);
 						}
@@ -135,7 +151,9 @@ var blink1 = new Blink1(); //uses first serialnumber
 
 	function setColor(r,g,b){
 		stopflashing = true;
-		blink1.fadeToRGB(200, r, g, b,function(){});
+		setTimeout(function () { // 2 second grace period for light to finish cycle
+			blink1.fadeToRGB(200, r, g, b,function(){});
+		}, 2000);
 	}
 
 	function setPoliceFlash(){
@@ -143,14 +161,16 @@ var blink1 = new Blink1(); //uses first serialnumber
 		cycleColors({r:0,g:0,b:255},{r:255,g:0,b:0});
 		setTimeout(function () {
 			stopflashing = true;
+			setColor(255,0,0);
 		}, pollInterval);
 	}
 
 	function setRedToYellow(){
 		stopflashing = false;
-		cycleColors({r:255,g:0,b:0},{r:255,g:255,b:0});
+		cycleColors({r:255,g:0,b:0},{r:255,g:255,b:0},1000);
 		setTimeout(function () {
 			stopflashing = true;
+			setColor(255,0,0);
 		}, pollInterval);
 	}
 
@@ -159,6 +179,7 @@ var blink1 = new Blink1(); //uses first serialnumber
 		cycleColors({r:0,g:255,b:0},{r:255,g:255,b:0}, 1000);
 		setTimeout(function () {
 			stopflashing = true;
+			setColor(0,255,0);
 		}, pollInterval);
 	}
 
@@ -172,6 +193,7 @@ var blink1 = new Blink1(); //uses first serialnumber
 		cycleColors({r:0,g:0,b:0},{r:0,g:255,b:0});
 		setTimeout(function () {
 			stopflashing = true;
+			setGreen();
 		}, pollInterval);
 	}
 
@@ -180,8 +202,4 @@ var blink1 = new Blink1(); //uses first serialnumber
 		setColor(255,0,0);
 	}
 
-
-
-
-	// setPoliceFlash();
-	checkBuild();
+module.exports = BuildProcess;

@@ -31,7 +31,7 @@ TeamCityGateway.prototype = {
 
 		request(options, function(error, response, body) {
 			if (error) {
-				console.log(error)
+				console.log(error);
 				// if you get UNABLE_TO_VERIFY_LEAF_SIGNATURE
 				// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 				callback(error, null);

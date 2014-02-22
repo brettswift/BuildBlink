@@ -34,8 +34,3 @@ Supported CI servers:
 * TBD
     * Jenkins
     * Travis CI 
-
-Story Wall
------------
-Private story wall is used to track features:  
-[Trello.com story wall (private)]("https://trello.com/board/buildblink/50e8b74c70aad4fc050025bc")

@@ -25,7 +25,9 @@
         "sprintf": "0.1.0",
         "express": "3.x",
         "nconf": "0.6.x",
-        "node-blink1": "0.1.x"
+        "node-blink1": "0.1.x",
+        "forever": "0.10.x",
+        "moment": "0.1.x",
     },
     "noAnalyze": true,
     "devDependencies": {

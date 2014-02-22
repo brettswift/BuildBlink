@@ -22,7 +22,7 @@ suite('TeamCityGateway', function() {
 
 			var gateway = new TeamCityGateway(config);
 
-			gateway.getBuildsForProjectId('bt4', function(err,result) {
+			gateway.getBuildsForProjectId('BranchingTest_Build', function(err,result) {
 				result.count.should.be.above(-1);
 			});
 

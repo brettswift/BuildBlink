@@ -30,10 +30,10 @@ suite('TeamcityService', function() {
 	suite('getBuildActivityForBuildId', function() {
 		test('should_return_build_activity', function(done) {
 
-			service.getBuildActivityForBuildId('bt4', function(err, result) {
+			service.getBuildActivityForBuildId('BranchingTest_Build', function(err, result) {
 				// console.log(prettyjson.render(result));
 				result.should.be.an.instanceof(BuildActivity, "BuildActivity");
-				result.currentBuild.buildTypeId.should.equal('bt4');
+				result.currentBuild.buildTypeId.should.equal('BranchingTest_Build');
 				done();
 			});
 		});
