@@ -2,7 +2,7 @@ var assert = require('assert');
 var should = require('should');
 var colors = require('colors');
 var prettyjson = require('prettyjson');
-var loadConfig = require('./../configure');
+var loadConfig = require('./../lib/conf/configure');
 
 var TeamCityService = require('./../services/TeamCityService.js');
 var BuildActivity = require('./../domain/BuildActivity.js');
