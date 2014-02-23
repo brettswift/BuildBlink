@@ -19,7 +19,7 @@ TeamCityGateway.prototype = {
 
 		var uri = vsprintf(uriBuildLocatorBase, this.server, projectId);
 
-		console.log('\rSending request to: ' + uri);
+		// console.log('\rSending request to: ' + uri);
 		var options = {
 			url: uri,
 			method: 'GET',

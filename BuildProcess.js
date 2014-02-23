@@ -43,7 +43,7 @@ BuildProcess.prototype = {
 			var date = new Date();
 			var timestamp = date.toDateString() + " " + date.toLocaleTimeString();
 
-			console.log(buildActivities);
+			// console.log(buildActivities);
 
 			process.stdout.write(timestamp + "  ");
 			if(areAnyBuildsBuilding(buildActivities)) {
