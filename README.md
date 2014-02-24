@@ -6,27 +6,44 @@ Uses [ThingM.com](http://thingm.com/)'s  [blink(1)](http://blink1.thingm.com/) p
 [![Build Status](https://travis-ci.org/brettswift/BuildBlink.png?branch=master)](https://travis-ci.org/brettswift/BuildBlink)
 
 
+Install & Usage
+---------------
+
+install:
+`npm install buildblink -g`
+
+run:
+`buildblink`
+
+* you will be prompted for configuration information on first run. 
+* to modify configuration after install, edit your `~/.buildblinkrc` file. 
+
+
 Features
 ----------
 Different colour patterns can be configured.  Default configuration follows the patterns below: 
 
-* Patterns typically blink and then hold solid (blink pattern): 
-    * Successful (green)
-    * Broken (flashes police colours red/blue, holds red)
-    * Building
-        * After a broken build (yellow / red fade)
-        * After a successful build (yellow / green fade)
+**Patterns**
 
-Currently one light can support multiple builds.  The blink pattern chosen will be of the most critical build in the pipe. 
-
-**TBD**
+* **Green** *Successful build*
+* **Flashing Green** (temporarily) *Newly successful build*
+* **Police Lights** (temporarily)   *Newly failed build*
+* **Cycle Green / Yellow**   *Building & previous build was green*
+* **Cycle Red / Yellow**   *Building & previous build was red*
 
 
-Right now the desktop tool triggers BuildBlink at an express http uri.  BuildBlink hits the blink1 api to trigger a specific pattern.  The pattern has already been loaded and stored in the desktop tool. (Script included)  
+Currently tested with one build, one light. 
 
-This architecture is kind of cludgy, but was quick to get running and easy to test.  Eventually remove dependency on the desktop app, and not host it as a website - background process instead?
+Requirements
+------------
 
+Teamcity has to have guestAuth enabled. Your Teamcity should respond to the sample url:
 
+[http://teamcity:8111/guestAuth/app/rest/buildTypes/id:Build_Identifier/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2](http://teamcity:8111/guestAuth/app/rest/buildTypes/id:BranchingTest_Build/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2)
+
+* swap teamcity, and Build_Identifier sections in the above url to test. 
+
+Currently only tested on OSX.
 
 Supported CI servers: 
 ----------------------
@@ -34,3 +51,10 @@ Supported CI servers:
 * TBD
     * Jenkins
     * Travis CI 
+
+Contributing
+------------
+
+* See the GitHub [**issues**](https://github.com/brettswift/buildblink/issues?labels=enhancement&state=open) page for enhancements, and submit your own!
+* Pull Request (use feature branches!)
+
