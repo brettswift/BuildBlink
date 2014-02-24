@@ -1,6 +1,6 @@
 {
     "name": "buildblink",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "description": "an application to monitor continuous integration builds and notify you by a ThingM blink1 light.",
     "author": "Brett Swift <brettswift@gmail.com>",
     "contributors": [
