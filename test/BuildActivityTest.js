@@ -2,7 +2,7 @@ var assert = require('assert');
 var should = require('should');
 var fs = require('fs');
 
-var BuildActivity = require('./../domain/BuildActivity');
+var BuildActivity = require('./../lib/domain/BuildActivity');
 
 
 suite('BuildActivity', function() {

@@ -1,9 +1,0 @@
-{
-    "teamcityHost": "10.9.26.72:8111",
-    "teamcityBuildNumbers": [
-        {
-            "name": "server specs",
-            "id": "PuppetConfig_VagrantServerspecTesting"
-        }
-    ]
-}
