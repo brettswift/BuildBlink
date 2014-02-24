@@ -13,6 +13,7 @@
         "type": "git",
         "url": "https://github.com/brettswift/buildblink"
     },
+    "homepage": "http://brettswift.github.io/BuildBlink",
     "keywords": [
         "continuous integration",
         "ci",
