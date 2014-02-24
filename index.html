@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Buildblink by brettswift</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Buildblink</h1>
+        <h2>using ThingM(.com)&#39;s  Blink(1) product, as a build light to notify you of your Continuous Integration Builds. </h2>
+
+        <section id="downloads">
+          <a href="https://github.com/brettswift/BuildBlink/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/brettswift/BuildBlink/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/brettswift/BuildBlink" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="build-blink" class="anchor" href="#build-blink"><span class="octicon octicon-link"></span></a>Build Blink</h1>
+
+<p>Uses <a href="http://thingm.com/">ThingM.com</a>'s  <a href="http://blink1.thingm.com/">blink(1)</a> product as a continuous integration build light. </p>
+
+<p><a href="https://travis-ci.org/brettswift/BuildBlink"><img src="https://travis-ci.org/brettswift/BuildBlink.png?branch=master" alt="Build Status"></a></p>
+
+<h2>
+<a name="install--usage" class="anchor" href="#install--usage"><span class="octicon octicon-link"></span></a>Install &amp; Usage</h2>
+
+<p>install:
+<code>npm install buildblink -g</code></p>
+
+<p>run:
+<code>buildblink</code></p>
+
+<ul>
+<li>you will be prompted for configuration information on first run. </li>
+<li>to modify configuration after install, edit your <code>~/.buildblinkrc</code> file. </li>
+</ul><h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>Different colour patterns can be configured.  Default configuration follows the patterns below: </p>
+
+<p><strong>Patterns</strong></p>
+
+<ul>
+<li>
+<strong>Green</strong> <em>Successful build</em>
+</li>
+<li>
+<strong>Flashing Green</strong> (temporarily) <em>Newly successful build</em>
+</li>
+<li>
+<strong>Police Lights</strong> (temporarily)   <em>Newly failed build</em>
+</li>
+<li>
+<strong>Cycle Green / Yellow</strong>   <em>Building &amp; previous build was green</em>
+</li>
+<li>
+<strong>Cycle Red / Yellow</strong>   <em>Building &amp; previous build was red</em>
+</li>
+</ul><p>Currently tested with one build, one light. </p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>Teamcity has to have guestAuth enabled. Your Teamcity should respond to the sample url:</p>
+
+<p><a href="http://teamcity:8111/guestAuth/app/rest/buildTypes/id:BranchingTest_Build/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2">http://teamcity:8111/guestAuth/app/rest/buildTypes/id:Build_Identifier/builds?locator=running:any,branch:(unspecified:any),lookupLimit:2</a></p>
+
+<ul>
+<li>swap teamcity, and Build_Identifier sections in the above url to test. </li>
+</ul><p>Currently only tested on OSX.</p>
+
+<h2>
+<a name="supported-ci-servers-" class="anchor" href="#supported-ci-servers-"><span class="octicon octicon-link"></span></a>Supported CI servers: </h2>
+
+<ul>
+<li>TeamCity</li>
+<li>TBD
+
+<ul>
+<li>Jenkins</li>
+<li>Travis CI </li>
+</ul>
+</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ul>
+<li>See the GitHub <a href="https://github.com/brettswift/buildblink/issues?labels=enhancement&amp;state=open"><strong>issues</strong></a> page for enhancements, and submit your own!</li>
+<li>Pull Request (use feature branches!)</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
