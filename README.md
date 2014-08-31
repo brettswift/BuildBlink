@@ -4,7 +4,7 @@ Uses [ThingM.com](http://thingm.com/)'s  [blink(1)](http://blink1.thingm.com/) p
 
 
 [![Build Status](https://travis-ci.org/brettswift/BuildBlink.png?branch=master)](https://travis-ci.org/brettswift/BuildBlink)
-
+[![Dependency Status](https://gemnasium.com/brettswift/BuildBlink.svg)](https://gemnasium.com/brettswift/BuildBlink)
 
 Install & Usage
 ---------------
