@@ -28,7 +28,7 @@
     "preferGlobal": "true",
     "dependencies": {
         "seq": "0.3.5",
-        "request": "2.9.x",
+        "request": "2.88.x",
         "sprintf": "0.1.0",
         "express": "3.x",
         "nconf": "0.6.x",
