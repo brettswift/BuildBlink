@@ -36,7 +36,7 @@
         "node-blink1": "0.1.x",
         "forever": "0.10.x",
         "prettyjson": "0.12.x",
-        "moment": "2.5.x",
+        "moment": "2.27.x",
         "sync-prompt": "0.2.x"
     },
     "noAnalyze": true,
